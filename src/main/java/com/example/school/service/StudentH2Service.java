@@ -53,12 +53,12 @@ public class StudentH2Service implements StudentRepository {
     //     }
     // }
 
-    @Override
+     @Override
     public Student addStudent(Student student) {
         db.update("insert into student(studentName, gender, standard) values (?,?,?)", student.getStudentName(),
                 student.getGender(), student.getStandard());
         return db.queryForObject(
-                "select * from student where studentName = ? and gender = ? and Standard =?",
+                "select * from student where studentName = ? and gender = ? and standard =?",
                 new StudentRowMapper(),
                 student.getStudentName(), student.getGender(), student.getStandard());
     }
@@ -88,11 +88,11 @@ public class StudentH2Service implements StudentRepository {
                     student.getStudentName(), studentId);
         }
         if (student.getGender() != null) {
-            db.update("update student set gender = ? where student = ?",
+            db.update("update student set gender = ? where studentId = ?", // updated
                     student.getGender(), studentId);
         }
         if (student.getStandard() != 0) {
-            db.update("update student set Standard = ? where studentId = ?",
+            db.update("update student set standard = ? where studentId = ?", // updated
                     student.getStandard(), studentId);
         }
         return getStudentById(studentId);
